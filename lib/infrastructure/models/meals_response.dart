@@ -5,9 +5,12 @@ class MealsResponse {
 
   MealsResponse({required this.mealList});
 
-  factory MealsResponse.fromJson(Map<String, dynamic> json) => MealsResponse(
-    mealList: List<MealResponse>.from(
-      json['meals'].map((meal) => MealResponse.fromJson(meal)),
-    ),
-  );
+  factory MealsResponse.fromJson(Map<String, dynamic> json) {
+    json['meals'] ??= [];
+    return MealsResponse(
+      mealList: List<MealResponse>.from(
+        json['meals'].map((meal) => MealResponse.fromJson(meal)),
+      ),
+    );
+  }
 }

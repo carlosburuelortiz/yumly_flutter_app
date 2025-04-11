@@ -31,7 +31,30 @@ class MealsDatasourceImpl extends MealsDatasource {
       }
       throw GenericException(message: e.message);
     } catch (e) {
-      throw GenericException();
+      throw GenericException(message: e.toString());
+    }
+  }
+  
+  @override
+  Future<MealEntity?> getMealById(String mealId) async {
+    try {
+      final response = await dio.get(
+        '/lookup.php',
+        queryParameters: {'i': mealId},
+      );
+      final mealResponse = MealsResponse.fromJson(response.data);
+      final mealsEntity = MealMapper.movieResponseToEntity(mealResponse);
+      final mealList = mealsEntity.mealList;
+      return mealList.firstOrNull;
+    } on DioException catch (e) {
+      if (e.response != null) {
+        if (e.response!.statusCode == ErrorException.kNotFound) {
+          throw NotFoundException();
+        }
+      }
+      throw GenericException(message: e.message);
+    } catch (e) {
+      throw GenericException(message: e.toString());
     }
   }
 }

@@ -1,117 +1,69 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:yumly_flutter_app/presentation/blocs/meal_bloc/meal_bloc.dart';
+import 'package:yumly_flutter_app/presentation/views/views.dart';
 import 'package:yumly_flutter_app/shared/widgets/widgets.dart';
 
-class MealDetailScreen extends StatelessWidget {
+class MealDetailScreen extends StatefulWidget {
   final String mealId;
 
-  MealDetailScreen({super.key, required this.mealId});
+  const MealDetailScreen({super.key, required this.mealId});
 
-  final String dishName = 'Spaghetti Carbonara';
-  final List<String> ingredients = [
-    '200g spaghetti',
-    '100g pancetta',
-    '2 eggs',
-    '50g grated parmesan',
-    'Salt & pepper',
-    '1 clove garlic',
-  ];
-  final List<String> instructions = [
-    '1. Boil the spaghetti in salted water.',
-    '2. Fry pancetta with garlic until crispy.',
-    '3. Beat eggs with grated parmesan.',
-    '4. Drain pasta and mix with pancetta.',
-    '5. Remove from heat, add egg mixture.',
-    '6. Stir well and serve with pepper.',
-  ];
+  @override
+  State<MealDetailScreen> createState() => _MealDetailScreenState();
+}
+
+class _MealDetailScreenState extends State<MealDetailScreen> {
+  final MealBloc mealBloc = MealBloc();
+
+  @override
+  void initState() {
+    mealBloc.add(FetchMealEvent(mealId: widget.mealId));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    mealBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(dishName), centerTitle: true),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Imagen con placeholder
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
-              child: SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Image.network(
-                  'https://www.themealdb.com/images/media/meals/quuxsx1511476154.jpg/large',
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      color: Colors.grey[200],
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[200],
-                      child: Center(
-                        child: Icon(
-                          Icons.broken_image,
-                          size: 100,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+    return BlocBuilder(
+      bloc: mealBloc,
+      builder: (context, state) {
+        return switch (state) {
+          MealsLoading() => const LoadingView(),
+          MealFetchingSuccessState(:final mealEntity) => MealDetailView(
+            mealEntity: mealEntity,
+          ),
+          MealFetchingNotFoundErrorState() => Scaffold(
+            appBar: AppBar(),
+            body: EmptyState(
+              message: 'Dish not found',
+              illustrationAsset: 'assets/images/no_dishes.png',
+              onAction: () {
+                mealBloc.add(FetchMealEvent(mealId: widget.mealId));
+              },
+              actionLabel: 'Try again',
             ),
-
-            // Contenido
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  PinnedCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Ingredientes',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        const SizedBox(height: 8),
-                        ...ingredients.map(
-                          (ingredient) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
-                            child: Text('- $ingredient'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 32), // Espacio mayor por la tachuela
-                  PinnedCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Instrucciones',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        const SizedBox(height: 8),
-                        ...instructions.map(
-                          (step) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: Text(step),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+          ),
+          _ => Scaffold(
+            appBar: AppBar(),
+            body: EmptyState(
+              message:
+                  'It seems that something went wrong. Shall we try again?',
+              illustrationAsset: 'assets/images/error.png',
+              onAction: () {
+                mealBloc.add(FetchMealEvent(mealId: widget.mealId));
+              },
+              actionLabel: 'Try again',
             ),
-          ],
-        ),
-      ),
+          ),
+        };
+      },
     );
   }
 }
