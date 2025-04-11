@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yumly_flutter_app/domain/entities/entities.dart';
 import 'package:yumly_flutter_app/infrastructure/datasources/meals_datasource_impl.dart';
+import 'package:yumly_flutter_app/infrastructure/errors/errors.dart';
 import 'package:yumly_flutter_app/infrastructure/repositories/meals_repository_impl.dart';
 
 part 'meals_event.dart';
@@ -27,7 +28,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       final meals = await repository.getMeals();
       
       emit(MealsFetchingSuccessState(mealsEntity: meals));
-    } catch (e) {
+    } on NotFoundException catch(e) {
+      emit(MealsFetchingNotFoundErrorState(e.toString()));
+    }catch (e) {
       emit(MealsFetchingErrorState(e.toString()));
     }
   }

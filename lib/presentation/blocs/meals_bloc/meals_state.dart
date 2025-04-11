@@ -1,6 +1,6 @@
 part of 'meals_bloc.dart';
 
-abstract class MealsState {}
+sealed class MealsState {}
 
 class MealsInitial extends MealsState {}
 class MealsLoading extends MealsState {}
@@ -14,7 +14,8 @@ class MealsFetchingErrorState extends MealsState {
 
   MealsFetchingErrorState(this.message);
 }
-// class MealsEmpty extends MealsState {}
-// class MealsNoInternet extends MealsState {}
-// class MealsNoData extends MealsState {}
-// class MealsNoResults extends MealsState {}
+class MealsFetchingNotFoundErrorState extends MealsState {
+  final String message;
+
+  MealsFetchingNotFoundErrorState(this.message);
+}

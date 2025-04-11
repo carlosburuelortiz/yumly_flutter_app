@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yumly_flutter_app/presentation/blocs/meals_bloc/meals_bloc.dart';
 import 'package:yumly_flutter_app/presentation/views/views.dart';
+import 'package:yumly_flutter_app/shared/widgets/widgets.dart';
 
 class MealsScreen extends StatefulWidget {
   const MealsScreen({super.key});
@@ -13,7 +14,6 @@ class MealsScreen extends StatefulWidget {
 }
 
 class _MealsScreenState extends State<MealsScreen> {
-
   final MealsBloc mealsBloc = MealsBloc();
 
   @override
@@ -23,25 +23,67 @@ class _MealsScreenState extends State<MealsScreen> {
   }
 
   @override
+  void dispose() {
+    mealsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yumly'),
+        title: _NameAppTitle(),
+        centerTitle: true,
       ),
-      body: BlocConsumer(
+      body: BlocBuilder(
         bloc: mealsBloc,
-        listener: (context, state) {
-        },
         builder: (context, state) {
-          if (state is MealsLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is MealsFetchingSuccessState) {
-            final mealList = state.mealsEntity.mealList;
-            return MealsView(mealList: mealList);
-          } else {
-            return NoDataAvailable();
-          }
+          return switch (state) {
+            MealsLoading() => const Center(child: CircularProgressIndicator()),
+            MealsFetchingSuccessState(:final mealsEntity) => MealsView(
+              mealList: mealsEntity.mealList,
+            ),
+            MealsFetchingNotFoundErrorState() => EmptyState(
+              message: 'No dishes found',
+              illustrationAsset: 'assets/images/no_dishes.png',
+              onAction: () {
+                mealsBloc.add(FetchMealsEvent());
+              },
+              actionLabel: 'Try again',
+            ),
+            _ => EmptyState(
+              message: 'It seems that something went wrong. Shall we try again?',
+              illustrationAsset: 'assets/images/error.png',
+              onAction: () {
+                mealsBloc.add(FetchMealsEvent());
+              },
+              actionLabel: 'Try again',
+            ),
+          };
         },
+      ),
+    );
+  }
+}
+
+class _NameAppTitle extends StatelessWidget {
+  const _NameAppTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        style: Theme.of(context).textTheme.titleLarge,
+        children: [
+          TextSpan(
+            text: 'Yum',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const TextSpan(text: 'ly', style: TextStyle(color: Colors.black)),
+        ],
       ),
     );
   }
