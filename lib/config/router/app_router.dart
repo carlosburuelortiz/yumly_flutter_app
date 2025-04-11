@@ -6,6 +6,7 @@ final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(path: '/', builder: (context, state) => const MealsScreen()),
+    GoRoute(path: '/search', builder: (context, state) => const SearchMealsScreen()),
     GoRoute(
       path: '/meal/:id',
       pageBuilder: (context, state) {

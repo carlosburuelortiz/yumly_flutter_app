@@ -23,7 +23,7 @@ class MealBloc extends Bloc<MealEvent, MealState> {
       // await Future.delayed(const Duration(seconds: 2));
       final mealsDatasource = MealsDatasourceImpl();
       final repository = MealsRepositoryImpl(mealsDatasource: mealsDatasource);
-      // ! create lookup service
+
       final meal = await repository.getMealById(event.mealId);
       if (meal == null) {
         emit(MealFetchingNotFoundErrorState(''));

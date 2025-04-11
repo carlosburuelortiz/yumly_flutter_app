@@ -5,17 +5,21 @@ import 'package:yumly_flutter_app/presentation/views/views.dart';
 
 class MealsView extends StatelessWidget {
   final List<MealEntity> mealList;
+  final bool isInfiniteScroll;
 
   const MealsView({
     super.key,
     required this.mealList,
+    this.isInfiniteScroll = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      itemCount: isInfiniteScroll ? null : mealList.length,
       itemBuilder: (context, index) {
-        final meal = mealList[index % mealList.length];
+        final infiniteIndex = isInfiniteScroll ? index % mealList.length : index;
+        final meal = mealList[infiniteIndex];
         return GestureDetector(
           child: MealCardList(meal: meal),
           onTap: () {

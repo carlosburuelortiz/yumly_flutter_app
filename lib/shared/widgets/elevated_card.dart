@@ -10,7 +10,6 @@ class ElevatedCard extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        // Tarjeta de contenido
         Card(
           elevation: 1,
           shape: RoundedRectangleBorder(

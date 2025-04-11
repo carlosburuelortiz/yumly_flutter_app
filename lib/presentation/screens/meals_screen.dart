@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:yumly_flutter_app/presentation/blocs/meals_bloc/meals_bloc.dart';
 import 'package:yumly_flutter_app/presentation/views/views.dart';
@@ -34,6 +35,14 @@ class _MealsScreenState extends State<MealsScreen> {
       appBar: AppBar(
         title: _NameAppTitle(),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              context.push('/search');
+            },
+          ),
+        ],
       ),
       body: BlocBuilder(
         bloc: mealsBloc,
@@ -44,7 +53,7 @@ class _MealsScreenState extends State<MealsScreen> {
               mealList: mealsEntity.mealList,
             ),
             MealsFetchingNotFoundErrorState() => EmptyState(
-              message: 'No dishes found',
+              message: 'No meals found',
               illustrationAsset: 'assets/images/no_dishes.png',
               onAction: () {
                 mealsBloc.add(FetchMealsEvent());

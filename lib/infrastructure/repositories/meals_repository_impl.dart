@@ -9,8 +9,8 @@ class MealsRepositoryImpl extends MealsRespository{
   MealsRepositoryImpl({required this.mealsDatasource});
 
   @override
-  Future<MealsEntity> getMeals([String name = '']) {
-    return mealsDatasource.getMeals(name);
+  Future<MealsEntity> getMeals([String query = '']) {
+    return mealsDatasource.getMeals(query);
   }
 
   @override

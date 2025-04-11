@@ -13,11 +13,11 @@ class MealsDatasourceImpl extends MealsDatasource {
   );
 
   @override
-  Future<MealsEntity> getMeals(String name) async {
+  Future<MealsEntity> getMeals(String query) async {
     try {
       final response = await dio.get(
         '/search.php',
-        queryParameters: {'s': name},
+        queryParameters: {'s': query},
       );
 
       final mealResponse = MealsResponse.fromJson(response.data);

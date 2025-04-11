@@ -46,6 +46,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
               mealBloc.add(FetchMealEvent(mealId: widget.mealId));
             },
             actionLabel: 'Try again',
+            needNavigate: true,
           ),
           _ => EmptyState(
             message: 'It seems that something went wrong. Shall we try again?',
@@ -54,6 +55,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
               mealBloc.add(FetchMealEvent(mealId: widget.mealId));
             },
             actionLabel: 'Try again',
+            needNavigate: true,
           ),
         };
       },
