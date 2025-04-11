@@ -39,28 +39,21 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           MealFetchingSuccessState(:final mealEntity) => MealDetailView(
             mealEntity: mealEntity,
           ),
-          MealFetchingNotFoundErrorState() => Scaffold(
-            appBar: AppBar(),
-            body: EmptyState(
-              message: 'Dish not found',
-              illustrationAsset: 'assets/images/no_dishes.png',
-              onAction: () {
-                mealBloc.add(FetchMealEvent(mealId: widget.mealId));
-              },
-              actionLabel: 'Try again',
-            ),
+          MealFetchingNotFoundErrorState() => EmptyState(
+            message: 'Dish not found',
+            illustrationAsset: 'assets/images/no_dishes.png',
+            onAction: () {
+              mealBloc.add(FetchMealEvent(mealId: widget.mealId));
+            },
+            actionLabel: 'Try again',
           ),
-          _ => Scaffold(
-            appBar: AppBar(),
-            body: EmptyState(
-              message:
-                  'It seems that something went wrong. Shall we try again?',
-              illustrationAsset: 'assets/images/error.png',
-              onAction: () {
-                mealBloc.add(FetchMealEvent(mealId: widget.mealId));
-              },
-              actionLabel: 'Try again',
-            ),
+          _ => EmptyState(
+            message: 'It seems that something went wrong. Shall we try again?',
+            illustrationAsset: 'assets/images/error.png',
+            onAction: () {
+              mealBloc.add(FetchMealEvent(mealId: widget.mealId));
+            },
+            actionLabel: 'Try again',
           ),
         };
       },

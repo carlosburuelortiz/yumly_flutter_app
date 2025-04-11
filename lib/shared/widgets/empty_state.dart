@@ -21,27 +21,30 @@ class EmptyState extends StatelessWidget {
             ? Image.asset(illustrationAsset!, height: 180)
             : null;
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (imageWidget != null) imageWidget,
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              message,
-              textAlign: TextAlign.center,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(color: Colors.grey[700]),
-            ),
-          ),
-          if (onAction != null && actionLabel != null) ...[
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (imageWidget != null) imageWidget,
             const SizedBox(height: 24),
-            FilledButton(onPressed: onAction, child: Text(actionLabel!)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(color: Colors.grey[700]),
+              ),
+            ),
+            if (onAction != null && actionLabel != null) ...[
+              const SizedBox(height: 24),
+              FilledButton(onPressed: onAction, child: Text(actionLabel!)),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
