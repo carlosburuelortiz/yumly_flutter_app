@@ -39,7 +39,7 @@ class _MealsScreenState extends State<MealsScreen> {
         bloc: mealsBloc,
         builder: (context, state) {
           return switch (state) {
-            MealsLoading() => const Center(child: CircularProgressIndicator()),
+            MealsLoading() => const LoadingView(),
             MealsFetchingSuccessState(:final mealsEntity) => MealsView(
               mealList: mealsEntity.mealList,
             ),
