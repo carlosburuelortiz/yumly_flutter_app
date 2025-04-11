@@ -36,17 +36,8 @@ class _MealsScreenState extends State<MealsScreen> {
           if (state is MealsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is MealsFetchingSuccessState) {
-            return ListView.builder(
-              itemCount: state.mealsEntity.mealList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.mealsEntity.mealList[index].strMeal),
-                  subtitle: Text(
-                    state.mealsEntity.mealList[index].ingredients.length.toString(),
-                  ),
-                );
-              },
-            );
+            final mealList = state.mealsEntity.mealList;
+            return MealsView(mealList: mealList);
           } else {
             return NoDataAvailable();
           }

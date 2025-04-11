@@ -24,7 +24,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       // ! Create registry
       final mealsDatasource = MealsDatasourceImpl();
       final repository = MealsRepositoryImpl(mealsDatasource: mealsDatasource);
-      final meals = await repository.getMeals('spanish');
+      final meals = await repository.getMeals();
       
       emit(MealsFetchingSuccessState(mealsEntity: meals));
     } catch (e) {
