@@ -26,7 +26,7 @@ class _MealsScreenState extends State<MealsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Meals'),
+        title: const Text('Yumly'),
       ),
       body: BlocConsumer(
         bloc: mealsBloc,

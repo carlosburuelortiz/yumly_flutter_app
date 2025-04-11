@@ -1,5 +1,5 @@
-import 'package:yumly_flutter_app/config/constant.dart';
-import 'package:yumly_flutter_app/config/extension.dart';
+import 'package:yumly_flutter_app/config/constants/constant.dart';
+import 'package:yumly_flutter_app/config/extensions/extension.dart';
 
 class MealResponse {
   final String idMeal;

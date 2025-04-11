@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yumly_flutter_app/presentation/screens/meals_screen.dart';
+
+import 'package:yumly_flutter_app/config/router/app_router.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,10 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: MealsScreen(),
+      routerConfig: appRouter,
     );
   }
 }

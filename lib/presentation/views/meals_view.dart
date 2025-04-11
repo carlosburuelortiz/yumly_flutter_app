@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yumly_flutter_app/domain/entities/entities.dart';
 
 class MealsView extends StatelessWidget {
@@ -14,11 +15,16 @@ class MealsView extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         final meal = mealList[index % mealList.length];
-        return ListTile(
-          title: Text(meal.strMeal),
-          subtitle: Text(
-            meal.ingredients.length.toString(),
+        return GestureDetector(
+          child: ListTile(
+            title: Text(meal.strMeal),
+            subtitle: Text(
+              meal.ingredients.length.toString(),
+            ),
           ),
+          onTap: () {
+            context.push('/meal/${meal.idMeal}');
+          },
         );
       },
     );
