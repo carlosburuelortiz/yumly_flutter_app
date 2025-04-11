@@ -12,6 +12,7 @@ class MealMapper {
                   strMeal: meal.strMeal,
                   strInstructions: meal.strInstructions,
                   strMealThumb: meal.strMealThumb,
+                  ingredients: meal.ingredients,
                 ),
               )
               .toList(),

@@ -1,22 +1,45 @@
+import 'package:yumly_flutter_app/config/constant.dart';
+import 'package:yumly_flutter_app/config/extension.dart';
+
 class MealResponse {
   final String idMeal;
   final String strMeal;
   final String? strInstructions;
   final String? strMealThumb;
+  final List<String> ingredients;
 
   MealResponse({
     required this.idMeal,
     required this.strMeal,
     required this.strInstructions,
     required this.strMealThumb,
+    required this.ingredients,
   });
 
-  factory MealResponse.fromJson(Map<String, dynamic> json) => MealResponse(
-    idMeal: json["idMeal"],
-    strMeal: json["strMeal"],
-    strInstructions: json["strInstructions"] ?? '',
-    strMealThumb: json["strMealThumb"] ?? '',
-  );
+  factory MealResponse.fromJson(Map<String, dynamic> json) {
+    final List<String> ingredients = [];
+
+    for (int index = 1; index <= Constant.kMaxIngredients; index++) {
+      final ingredientKey = 'strIngredient$index';
+      final measureKey = 'strMeasure$index';
+
+      final ingredientValue = json[ingredientKey] as String?;
+      final measureValue = json[measureKey] as String?;
+
+      if (ingredientValue.isStringEmpty || measureValue.isStringEmpty) {
+        break;
+      }
+      ingredients.add('$ingredientValue ($measureValue)') ;
+    }
+
+    return MealResponse(
+      idMeal: json["idMeal"],
+      strMeal: json["strMeal"],
+      strInstructions: json["strInstructions"] ?? '',
+      strMealThumb: json["strMealThumb"] ?? '',
+      ingredients: ingredients,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "idMeal": idMeal,

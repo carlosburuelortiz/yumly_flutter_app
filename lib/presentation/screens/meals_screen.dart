@@ -41,6 +41,9 @@ class _MealsScreenState extends State<MealsScreen> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(state.mealsEntity.mealList[index].strMeal),
+                  subtitle: Text(
+                    state.mealsEntity.mealList[index].ingredients.length.toString(),
+                  ),
                 );
               },
             );
