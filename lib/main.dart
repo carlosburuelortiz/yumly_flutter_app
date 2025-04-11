@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yumly_flutter_app/presentation/screens/meals_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,14 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: MealsScreen(),
     );
   }
 }
