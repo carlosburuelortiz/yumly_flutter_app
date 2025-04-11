@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:yumly_flutter_app/domain/entities/entities.dart';
 import 'package:yumly_flutter_app/infrastructure/datasources/meals_datasource_impl.dart';
 import 'package:yumly_flutter_app/infrastructure/errors/errors.dart';

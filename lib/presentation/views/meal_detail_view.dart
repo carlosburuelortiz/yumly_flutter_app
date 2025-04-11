@@ -112,6 +112,7 @@ class CustomSilverAppBar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           mealEntity.nameMeal,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

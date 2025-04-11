@@ -18,7 +18,7 @@ class LoadingView extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             Text(
-              'Preparando algo delicioso...',
+              'Preparing something delicious...',
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.w600,

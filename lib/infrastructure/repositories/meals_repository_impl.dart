@@ -1,6 +1,5 @@
 import 'package:yumly_flutter_app/domain/datasources/meals_datasource.dart';
-import 'package:yumly_flutter_app/domain/entities/meal_entity.dart';
-import 'package:yumly_flutter_app/domain/entities/meals_entity.dart';
+import 'package:yumly_flutter_app/domain/entities/entities.dart';
 import 'package:yumly_flutter_app/domain/repositories/meals_respository.dart';
 
 class MealsRepositoryImpl extends MealsRespository{

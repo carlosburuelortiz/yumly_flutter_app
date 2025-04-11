@@ -73,7 +73,7 @@ class _SearchMealsScreenState extends State<SearchMealsScreen> {
                 onChanged: _onChangedHandler,
                 style: TextStyle(fontSize: 16),
                 decoration: InputDecoration(
-                  hintText: 'Buscar platillos...',
+                  hintText: 'Search for dishes...',
                   prefixIcon: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 8),
                     child: Icon(Icons.search, color: Colors.grey[700]),

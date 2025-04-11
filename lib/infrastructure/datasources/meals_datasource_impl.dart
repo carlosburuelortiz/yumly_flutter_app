@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:yumly_flutter_app/config/constants/error_exception.dart';
 
+import 'package:yumly_flutter_app/config/constants/error_exception.dart';
 import 'package:yumly_flutter_app/domain/datasources/meals_datasource.dart';
 import 'package:yumly_flutter_app/domain/entities/entities.dart';
 import 'package:yumly_flutter_app/infrastructure/errors/errors.dart';
