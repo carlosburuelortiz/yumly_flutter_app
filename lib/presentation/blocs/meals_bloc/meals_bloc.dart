@@ -20,7 +20,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     emit(MealsLoading());
     try {
       // ! Simulate network delay
-      await Future.delayed(const Duration(seconds: 2));
+      // await Future.delayed(const Duration(seconds: 2));
       // ! Create registry
       final mealsDatasource = MealsDatasourceImpl();
       final repository = MealsRepositoryImpl(mealsDatasource: mealsDatasource);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yumly_flutter_app/domain/entities/entities.dart';
+import 'package:yumly_flutter_app/presentation/views/views.dart';
 
 class MealsView extends StatelessWidget {
   final List<MealEntity> mealList;
@@ -16,12 +17,7 @@ class MealsView extends StatelessWidget {
       itemBuilder: (context, index) {
         final meal = mealList[index % mealList.length];
         return GestureDetector(
-          child: ListTile(
-            title: Text(meal.strMeal),
-            subtitle: Text(
-              meal.ingredients.length.toString(),
-            ),
-          ),
+          child: MealCardList(meal: meal),
           onTap: () {
             context.push('/meal/${meal.idMeal}');
           },

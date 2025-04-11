@@ -1,15 +1,15 @@
 class MealEntity {
   final String idMeal;
-  final String strMeal;
-  final String? strInstructions;
-  final String? strMealThumb;
+  final String nameMeal;
+  final String? mealInstructions;
+  final String? mealThumb;
   final List<String> ingredients;
 
   MealEntity({
     required this.idMeal,
-    required this.strMeal,
-    required this.strInstructions,
-    required this.strMealThumb,
+    required this.nameMeal,
+    required this.mealInstructions,
+    required this.mealThumb,
     required this.ingredients,
   });
 }

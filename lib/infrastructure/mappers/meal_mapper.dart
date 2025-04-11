@@ -9,9 +9,9 @@ class MealMapper {
               .map(
                 (meal) => MealEntity(
                   idMeal: meal.idMeal,
-                  strMeal: meal.strMeal,
-                  strInstructions: meal.strInstructions,
-                  strMealThumb: meal.strMealThumb,
+                  nameMeal: meal.nameMeal,
+                  mealInstructions: meal.mealInstructions,
+                  mealThumb: meal.mealThumb,
                   ingredients: meal.ingredients,
                 ),
               )

@@ -3,16 +3,16 @@ import 'package:yumly_flutter_app/config/extensions/extension.dart';
 
 class MealResponse {
   final String idMeal;
-  final String strMeal;
-  final String? strInstructions;
-  final String? strMealThumb;
+  final String nameMeal;
+  final String? mealInstructions;
+  final String? mealThumb;
   final List<String> ingredients;
 
   MealResponse({
     required this.idMeal,
-    required this.strMeal,
-    required this.strInstructions,
-    required this.strMealThumb,
+    required this.nameMeal,
+    required this.mealInstructions,
+    required this.mealThumb,
     required this.ingredients,
   });
 
@@ -34,17 +34,17 @@ class MealResponse {
 
     return MealResponse(
       idMeal: json["idMeal"],
-      strMeal: json["strMeal"],
-      strInstructions: json["strInstructions"] ?? '',
-      strMealThumb: json["strMealThumb"] ?? '',
+      nameMeal: json["strMeal"],
+      mealInstructions: json["strInstructions"] ?? '',
+      mealThumb: json["strMealThumb"] ?? '',
       ingredients: ingredients,
     );
   }
 
   Map<String, dynamic> toJson() => {
     "idMeal": idMeal,
-    "strMeal": strMeal,
-    "strInstructions": strInstructions,
-    "strMealThumb": strMealThumb,
+    "strMeal": nameMeal,
+    "strInstructions": mealInstructions,
+    "strMealThumb": mealThumb,
   };
 }
